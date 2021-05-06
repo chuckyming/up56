@@ -140,5 +140,15 @@ trait BaseModel {
     val fiveDs: Dataset[Row] = getFiveRuleDF(mysqlDF, id)
 
     //5.根据Hbase数据和5及标签数据进行匹配，得出userId，tagsId
+    val newDF: DataFrame = compute(hbaseDF, fiveDs)
+
+    //6.查询HBase中的oldDF
+    val oldDF: DataFrame = getHBaseOldDF(hBaseMeta)
+
+    //7.合并newDF和oldDF
+    val resultDF: DataFrame = merge(newDF, oldDF)
+
+    //8.将最终结果写入到HBase
+    save2HBase(resultDF, hBaseMeta)
   }
 }
