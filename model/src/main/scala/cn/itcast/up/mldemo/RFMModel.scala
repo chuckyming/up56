@@ -104,6 +104,7 @@ object RFMModel extends BaseModel{
     //7.将预测出的用户据类中心索引编号和用户价值等级id对应
     null
 
+
   }
 
 }
